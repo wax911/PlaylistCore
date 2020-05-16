@@ -20,7 +20,7 @@ import android.app.Application
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Intent
-import android.support.annotation.IntRange
+import androidx.annotation.IntRange
 import android.util.Log
 import com.devbrackets.android.playlistcore.api.MediaPlayerApi
 import com.devbrackets.android.playlistcore.api.PlaylistItem
@@ -44,8 +44,11 @@ import java.util.concurrent.locks.ReentrantLock
  * used as standalone with a custom service, or in conjunction with
  * [BasePlaylistService]
  */
-abstract class BasePlaylistManager<I : PlaylistItem>(protected val application: Application, protected val mediaServiceClass: Class<out Service>) :
-        PlaylistListener<I>, ProgressListener {
+abstract class BasePlaylistManager<I : PlaylistItem>(
+        protected val application: Application,
+        protected val mediaServiceClass: Class<out Service>
+) : PlaylistListener<I>, ProgressListener {
+
     companion object {
         private val TAG = "PlaylistManager"
 
@@ -132,6 +135,8 @@ abstract class BasePlaylistManager<I : PlaylistItem>(protected val application: 
     protected var progressListenersLock = ReentrantLock(true)
 
     protected var seekEndedIntent: Intent? = null
+    protected var playPendingIntent: PendingIntent? = null
+    protected var pausePendingIntent: PendingIntent? = null
     protected var playPausePendingIntent: PendingIntent? = null
     protected var nextPendingIntent: PendingIntent? = null
     protected var previousPendingIntent: PendingIntent? = null
@@ -376,6 +381,26 @@ abstract class BasePlaylistManager<I : PlaylistItem>(protected val application: 
      * Informs the Media service that the current item
      * needs to be played/paused.  The service specified with
      * [.getMediaServiceClass]} will be informed using the action
+     * [RemoteActions.ACTION_PLAY]
+     */
+    open fun invokePlay() {
+        sendPendingIntent(playPendingIntent)
+    }
+
+    /**
+     * Informs the Media service that the current item
+     * needs to be paused. The service specified with
+     * [getMediaServiceClass] will be informed using the action
+     * [RemoteActions.ACTION_PAUSE]
+     */
+    open fun invokePause() {
+        sendPendingIntent(pausePendingIntent)
+    }
+
+    /**
+     * Informs the Media service that the current item
+     * needs to be played/paused.  The service specified with
+     * [.getMediaServiceClass]} will be informed using the action
      * [RemoteActions.ACTION_PLAY_PAUSE]
      */
     open fun invokePausePlay() {
@@ -469,6 +494,8 @@ abstract class BasePlaylistManager<I : PlaylistItem>(protected val application: 
         previousPendingIntent = createPendingIntent(application, mediaServiceClass, RemoteActions.ACTION_PREVIOUS)
         nextPendingIntent = createPendingIntent(application, mediaServiceClass, RemoteActions.ACTION_NEXT)
         playPausePendingIntent = createPendingIntent(application, mediaServiceClass, RemoteActions.ACTION_PLAY_PAUSE)
+        playPendingIntent = createPendingIntent(application, mediaServiceClass, RemoteActions.ACTION_PLAY)
+        pausePendingIntent = createPendingIntent(application, mediaServiceClass, RemoteActions.ACTION_PAUSE)
 
         stopPendingIntent = createPendingIntent(application, mediaServiceClass, RemoteActions.ACTION_STOP)
         seekStartedPendingIntent = createPendingIntent(application, mediaServiceClass, RemoteActions.ACTION_SEEK_STARTED)

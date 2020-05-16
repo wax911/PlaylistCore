@@ -154,6 +154,8 @@ abstract class BasePlaylistService<I : PlaylistItem, out M : BasePlaylistManager
                 playlistHandler.startItemPlayback(seekToPosition, startPaused)
             }
             RemoteActions.ACTION_PLAY_PAUSE -> playlistHandler.togglePlayPause()
+            RemoteActions.ACTION_PLAY -> playlistHandler.play()
+            RemoteActions.ACTION_PAUSE -> playlistHandler.pause(false)
             RemoteActions.ACTION_NEXT -> playlistHandler.next()
             RemoteActions.ACTION_PREVIOUS -> playlistHandler.previous()
             RemoteActions.ACTION_STOP -> playlistHandler.stop()

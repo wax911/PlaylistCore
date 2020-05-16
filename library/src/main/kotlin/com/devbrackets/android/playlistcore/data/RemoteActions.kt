@@ -26,6 +26,8 @@ object RemoteActions {
 
     val ACTION_START_SERVICE = PREFIX + "start_service"
 
+    val ACTION_PLAY = PREFIX + "play"
+    val ACTION_PAUSE = PREFIX + "pause"
     val ACTION_PLAY_PAUSE = PREFIX + "play_pause"
     val ACTION_PREVIOUS = PREFIX + "previous"
     val ACTION_NEXT = PREFIX + "next"
