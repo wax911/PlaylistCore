@@ -16,15 +16,15 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
 
     // Android
-    api "com.android.support:support-media-compat:$rootProject.ext.supportLibVersion"
+    api 'androidx.media:media:1.1.0'
 }
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion 29
 
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 27
+        targetSdkVersion 29
 
         versionCode versionMajor * 10000 + versionMinor * 1000 + versionPatch * 100
         versionName "${versionMajor}.${versionMinor}.${versionPatch}"
@@ -55,7 +55,7 @@ uploadArchives {
             pom.artifactId = libraryBaseName
             pom.version = libraryVersion //Normally I would append "-SNAPSHOT" but newer gradle/maven can't always find them
             pom.packaging = 'aar'
-            uniqueVersion = false // don't put in a timestamp on the filename (other project will not be able to depend on it)
+            //uniqueVersion = false // don't put in a timestamp on the filename (other project will not be able to depend on it)
         }
     }
 }

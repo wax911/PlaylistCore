@@ -1,7 +1,7 @@
 package com.devbrackets.android.playlistcoredemo.manager;
 
 import android.app.Application;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.devbrackets.android.exomedia.listener.VideoControlsButtonListener;
 import com.devbrackets.android.exomedia.ui.widget.VideoControls;
