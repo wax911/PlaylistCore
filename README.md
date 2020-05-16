@@ -23,7 +23,7 @@ repositories {
 
 dependencies {
     //...
-    compile 'com.devbrackets.android:playlistcore:2.0.1'
+    implement 'com.devbrackets.android:playlistcore:2.1.0'
 }
 ```
 
