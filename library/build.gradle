@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'maven'
-apply plugin: 'com.novoda.bintray-release'
+apply plugin: 'com.github.panpf.bintray-publish'
 
 def versionMajor = 2
 def versionMinor = 1
@@ -62,12 +62,13 @@ uploadArchives {
 
 // ======= BINTRAY DEPLOY (command: $ ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false) ====
 publish {
-    userOrg = ""
+    userOrg = "devbrackets"
     groupId = libraryGroupId
     artifactId = libraryBaseName
     uploadName = 'PlaylistCore'
     publishVersion = libraryVersion
-    desc = ""
+    desc = "Playlist Core is a media playback management library for Android that simplifies playing lists of media (Audio and Video) by providing the service, notification, and other media controls such as Bluetooth devices, Android Wear, and Lock screens."
     autoPublish = false
     dryRun = false
+    website = 'https://github.com/brianwernick/PlaylistCore'
 }
